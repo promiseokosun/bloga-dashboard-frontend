@@ -14,16 +14,28 @@ export class CategoriesComponent implements OnInit {
   }
   onSubmit(formData: any) {
     let categoryData = {
-      category: formData.value.category
+      category: formData.value.category,
+      status: "Active"
     }
 
-    let collectionReference = this.fs.collection('categories').add(categoryData)
+    let subCategoryData = {
+      subCat: 'subCatValue'
+    }
+
+
+    this.fs.collection('categories').add(categoryData)
         .then(value => {
           console.log(value);
+          this.fs.collection('categories').doc(value.id).collection('subcategories').add(subCategoryData)
+              .then(value1 => {
+                console.log(value1)
+              }).catch(reason => {
+            console.log('Error saving subcategory: ' + reason)
+          })
         })
         .catch(reason => {
-          console.log(reason)
-        })
+          console.log(reason);
+        });
   }
 
 
