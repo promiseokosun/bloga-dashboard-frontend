@@ -1,0 +1,5 @@
+input[type = text] {
+  /*padding: 0 15px;*/
+  width: 100%;
+  font-size: 1.1rem;
+}
