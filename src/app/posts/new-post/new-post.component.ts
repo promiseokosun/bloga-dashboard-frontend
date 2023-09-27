@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CategoriesService} from "../../services/categories.service";
 
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.css']
 })
-export class NewPostComponent {
+export class NewPostComponent implements OnInit {
   postPermalink: string = '';
   imgSrc: any = './assets/images/image-placeholder.jpg';
   selectedImage: any = '';
+  categories: any[] = [];
+
+
+  constructor(private categoriesService: CategoriesService) {
+  }
+  ngOnInit(): void {
+    this.loadCategories();
+  }
 
   onTitleChanged($event: any) {
     // console.log($event.target.value.replaceAll(" ", "-"));
@@ -23,4 +32,11 @@ export class NewPostComponent {
     fileReader.readAsDataURL($event.target.files[0]);
     this.selectedImage = $event.target.files[0];
   }
+
+  loadCategories() {
+    this.categoriesService.getAll().subscribe(categories => {
+      this.categories = categories;
+    });
+  }
+
 }
