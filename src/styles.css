@@ -66,5 +66,5 @@ input[type = text], input[type = email], textarea {
 }
 
 .form-text {
-  width: 500px;
+  width: 100%;
 }
