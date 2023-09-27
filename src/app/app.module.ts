@@ -35,7 +35,7 @@ import { NewPostComponent } from './posts/new-post/new-post.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({closeButton: true})
   ],
   providers: [],
   bootstrap: [AppComponent]
