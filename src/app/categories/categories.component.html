@@ -1,18 +1,59 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 bg-secondary-theme shadow-effect py-5 px-4">
-      <h3 class="text-center text-primary-theme"> New Categories </h3>
+      <h3 class="text-center text-primary-theme"> {{ formType }} Categories </h3>
       <p class="text-center mb-5"> You can add new categories from here ..! </p>
 
       <form class="form-inline text-center" #categoryForm = "ngForm"  (ngSubmit)="onSubmit(categoryForm)">
+
+<!--        <small class="alert alert-danger ml-3 mb-0" *ngIf="newCategory.touched && newCategory.invalid">-->
+<!--          Category field is required-->
+<!--        </small>-->
+
         <div class="form-group col-md-10">
-          <input type="text" class="form-control shadow-effect form-text" placeholder="Add New Categories" name="category" ngModel>
+          <input
+                  type="text"
+                  class="form-control shadow-effect form-text"
+                  placeholder="Add New Categories"
+                  name="category"
+                  #newCategory = "ngModel"
+                  [(ngModel)] = "formCategory"
+                  ngModel
+                  [ngClass]=" {'is-invalid' : newCategory.touched && newCategory.invalid}"
+                  required>
         </div>
 
         <div class="col-md-2">
-          <button type="submit" class="btn btn-info btn-block form-btn"> Add Category </button>
+          <button type="submit" class="btn btn-info btn-block form-btn" [disabled]="categoryForm.invalid"> {{ formType }} Category </button>
         </div>
+
       </form>
     </div>
   </div>
+
+    <div class="container justify-content-center col-md-6 my-5">
+      <div class="card shadow-effect">
+        <div class="card-body">
+          <table class="table row-border hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cat of categoryArray; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ cat.data.category }}</td>
+              <td>
+                <button class="btn btn-sm btn-warning" (click)="onEdit(cat.id, cat.data.category)">Edit</button>
+                <button class="btn btn-sm btn-danger ml-2" (click)="onDelete(cat.id)">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 </div>
