@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {CategoriesService} from "../services/categories.service";
+import {Category} from "../models/category";
 
 @Component({
   selector: 'app-categories',
@@ -8,35 +9,40 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor(private fs: AngularFirestore) {
+  categoryArray: any[] = [];
+  formCategory: string = "";
+  formType = "Add";
+  categoryId = "";
+  constructor(private categoriesService: CategoriesService) {
   }
   ngOnInit(): void {
+    this.categoriesService.getAll().subscribe(categories => {
+      console.log(categories);
+      this.categoryArray = categories;
+    });
   }
   onSubmit(formData: any) {
-    let categoryData = {
-      category: formData.value.category,
-      status: "Active"
+    let categoryData: Category = {
+      category: formData.value.category
     }
 
-    let subCategoryData = {
-      subCat: 'subCatValue'
+    if(this.formType === "Add") {
+      this.categoriesService.add(categoryData);
+    } else if(this.formType === "Edit") {
+      this.categoriesService.edit(this.categoryId, categoryData);
+      this.formType = "Add";
     }
-
-
-    this.fs.collection('categories').add(categoryData)
-        .then(value => {
-          console.log(value);
-          this.fs.collection('categories').doc(value.id).collection('subcategories').add(subCategoryData)
-              .then(value1 => {
-                console.log(value1)
-              }).catch(reason => {
-            console.log('Error saving subcategory: ' + reason)
-          })
-        })
-        .catch(reason => {
-          console.log(reason);
-        });
+    formData.reset();
   }
 
 
+  onEdit(id: string, category: string) {
+    this.formCategory = category;
+    this.formType = "Edit";
+    this.categoryId = id;
+  }
+
+  onDelete(id: string) {
+    this.categoriesService.delete(id);
+  }
 }
