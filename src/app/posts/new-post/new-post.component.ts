@@ -11,6 +11,7 @@ export class NewPostComponent implements OnInit {
   imgSrc: any = './assets/images/image-placeholder.jpg';
   selectedImage: any = '';
   categories: any[] = [];
+  htmlContent: any = '';
 
 
   constructor(private categoriesService: CategoriesService) {

@@ -15,6 +15,8 @@ import { ToastrModule } from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AllPostComponent } from './posts/all-post/all-post.component';
 import { NewPostComponent } from './posts/new-post/new-post.component';
+import {AngularEditorModule} from "@kolkov/angular-editor";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -29,13 +31,15 @@ import { NewPostComponent } from './posts/new-post/new-post.component';
     NewPostComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({closeButton: true})
+      BrowserModule,
+      AppRoutingModule,
+      FormsModule,
+      AngularFireModule.initializeApp(environment.firebaseConfig),
+      AngularFirestoreModule,
+      BrowserAnimationsModule,
+      ToastrModule.forRoot({closeButton: true}),
+      AngularEditorModule,
+      HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
