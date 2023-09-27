@@ -1,1 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url("~bootstrap/dist/css/bootstrap.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400&display=swap');
+@import url("~font-awesome/css/font-awesome.min.css");
+
+:root{
+  --primary-color: #026467;
+  --secondary-color: #E5F5EA;
+  --body-text-color: #596392;
+  --navbar-footer-color: #F9F9F9;
+}
+
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  color: var(--body-text-color);
+}
+
+.site-logo {
+  padding: 5px 20px;
+  border-radius: 20px 20px 20px 0;
+  background-color: var(--secondary-color);
+}
+
+.nav-link {
+  color: var(--primary-color);
+}
+
+.shadow-effect {
+  box-shadow: 0 0 33px -10px rgba(71, 114, 254, 0.3);
+  /*box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);*/
+}
+
+.bg-primary-theme {
+  background-color: var(--primary-color);
+  /*color: var(--secondary-color);*/
+}
+
+.bg-secondary-theme {
+  background-color: var(--secondary-color);
+}
+
+.text-primary-theme {
+  color: var(--primary-color);
+}
+
+.text-secondary-theme {
+  color: var(--secondary-color);
+}
+
+input[type = text], input[type = email], textarea {
+  height: 60px;
+  padding-left: 20px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.form-btn {
+  height: 58px;
+  border: none;
+  font-size: 13px;
+  background-color: var(--primary-color);
+}
+
+.form-text {
+  width: 500px;
+}
