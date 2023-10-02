@@ -12,4 +12,41 @@
             </div>
         </div>
     </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card justify-content-center shadow-effect">
+                <div class="card-body">
+                    <table class="table row-border hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th> Post Image </th>
+                                <th> Title </th>
+                                <th> Excerpt </th>
+                                <th> Category </th>
+                                <th> Date </th>
+                                <th> Actions </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let post of allPosts; let i = index">
+                                <td> {{ i + 1 }} </td>
+                                <td class=" "><img src="{{ post.data.postImgPath }} " alt="Post Image" class="img img-fluid img-size"> </td>
+                                <td class="text-primary-theme"> {{ post.data.title | uppercase }} </td>
+                                <td> {{ post.data.excerpt }} </td>
+                                <td class="bg-primary-theme text-secondary-theme"> {{ post.data.category.category }} </td>
+                                <td> {{ post.data.createdAt.toDate() | date: 'yyyy-MM-dd'}} at {{ post.data.createdAt.toDate() | date: 'hh:mm:ss a' }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" routerLink="/posts/new" [queryParams]="{id: post.id}">Edit</button>
+                                    <button class="btn btn-sm btn-danger mt-3">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewPostComponent } from './new-post.component';
+import { PostFormComponent } from './post-form.component';
 
 describe('NewPostComponent', () => {
-  let component: NewPostComponent;
-  let fixture: ComponentFixture<NewPostComponent>;
+  let component: PostFormComponent;
+  let fixture: ComponentFixture<PostFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NewPostComponent]
+      declarations: [PostFormComponent]
     });
-    fixture = TestBed.createComponent(NewPostComponent);
+    fixture = TestBed.createComponent(PostFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
