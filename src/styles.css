@@ -23,6 +23,7 @@ body {
   padding: 5px 20px;
   border-radius: 20px 20px 20px 0;
   background-color: var(--secondary-color);
+  /*border: 2px solid var(--primary-color);*/
 }
 
 .nav-link {
