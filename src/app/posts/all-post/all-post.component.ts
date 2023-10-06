@@ -24,4 +24,17 @@ export class AllPostComponent implements OnInit {
   }
 
   protected readonly Date = Date;
+
+  onDelete(id: string, postImgPath: string) {
+    if(window.confirm('Are you sure you want to delete this post?')) {
+      this.postService.deleteImageAndDeletePost(id, postImgPath);
+    }
+  }
+
+  onFeatured(id: string, isFeatured: boolean) {
+    const featuredData = {
+      isFeatured: isFeatured
+    }
+    this.postService.markFeatured(id, featuredData);
+  }
 }
