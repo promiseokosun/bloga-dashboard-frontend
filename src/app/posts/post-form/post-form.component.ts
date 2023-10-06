@@ -18,6 +18,8 @@ export class PostFormComponent implements OnInit {
   category: any;
   post: any;
   formType: string = 'Add';
+  editId: string = '';
+  default: string = 'UK';
   constructor(private categoriesService: CategoriesService,
               private fb: FormBuilder,
               private postService: PostService,
@@ -32,6 +34,10 @@ export class PostFormComponent implements OnInit {
       postImg: ['', Validators.required],
       content: ['', Validators.required]
     })
+  }
+
+  ngOnInit(): void {
+    this.loadCategories();
 
     this.activatedRoute.queryParams.subscribe(value => {
       console.log(value);
@@ -41,12 +47,14 @@ export class PostFormComponent implements OnInit {
         if(this.post) {
           this.imgSrc = this.post.postImgPath;
           this.formType = 'Edit';
+          this.editId = value['id'];
         }
+
         this.postForm = this.fb.group({
           title: [this.post ? this.post.title : '', [Validators.required, Validators.minLength(10)]],
           permalink: [{value: this.post ? this.post.permalink : '', disabled: true}],
           excerpt: [this.post ? this.post.excerpt : '', [Validators.required, Validators.minLength(10)]],
-          category: [this.post ? this.post.category.category : '', Validators.required],
+          category: [this.post ? `${this.post.category.categoryId}-${this.post.category.category}` : '', Validators.required],
           postImg: ['', Validators.required],
           content: [this.post ? this.post.content : '', Validators.required]
         })
@@ -54,16 +62,11 @@ export class PostFormComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    this.loadCategories();
-  }
-
   get fc() {
     return this.postForm.controls;
   }
 
-  onTitleChanged($event: any) {    // console.log($event.target.value.replaceAll(" ", "-"));
-
+  onTitleChanged($event: any) {
     // this.postPermalink = $event.target.value.replaceAll(" ", "-");
     // call the setValue to simulate 2-way data binding for reactive form
     this.fc['permalink'].setValue($event.target.value.replaceAll(" ", "-"));
@@ -85,14 +88,15 @@ export class PostFormComponent implements OnInit {
       this.categories = categories;
     });
   }
-
   onSubmit() {
+    let cat: string[] = this.postForm.value.category.split('-');
     const postData: Post = {
-      title: this.fc['title'].getRawValue(),
+      // title: this.fc['title'].getRawValue(),
+      title: this.postForm.value.title,
       permalink: this.fc['permalink'].getRawValue(),
       category: {
-        categoryId: this.fc['category'].getRawValue().id,
-        category: this.fc['category'].getRawValue().data.category
+        categoryId: cat[0],
+        category: cat[1]
       },
       postImgPath: '',
       excerpt: this.fc['excerpt'].getRawValue(),
@@ -102,8 +106,8 @@ export class PostFormComponent implements OnInit {
       status: 'new',
       createdAt: new Date()
     }
-    console.log(postData);
-    this.postService.uploadImageAndCreatePost(this.selectedImage, postData);
+
+    this.postService.uploadImageAndSavePost(this.selectedImage, postData, this.formType, this.editId);
     this.postForm.reset();
     this.imgSrc = './assets/images/image-placeholder.jpg';
   }

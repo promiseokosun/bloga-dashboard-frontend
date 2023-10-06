@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'posts', component: AllPostComponent },
-  { path: 'posts/new', component: PostFormComponent },
+  { path: 'posts/form', component: PostFormComponent },
 ];
 
 @NgModule({
