@@ -19,6 +19,8 @@ import {AngularEditorModule} from "@kolkov/angular-editor";
 import {HttpClientModule} from "@angular/common/http";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 import {NgOptimizedImage} from "@angular/common";
+import { LoginComponent } from './auth/login/login.component';
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 
 
 
@@ -31,6 +33,7 @@ import {NgOptimizedImage} from "@angular/common";
     CategoriesComponent,
     AllPostComponent,
     PostFormComponent,
+    LoginComponent,
   ],
     imports: [
         BrowserModule,
@@ -45,6 +48,7 @@ import {NgOptimizedImage} from "@angular/common";
         ReactiveFormsModule,
         AngularFireStorageModule,
         NgOptimizedImage,
+        AngularFireAuthModule
     ],
   providers: [],
   bootstrap: [AppComponent]
