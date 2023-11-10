@@ -10,16 +10,18 @@ import {BehaviorSubject} from "rxjs";
 export class AuthService {
 
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoggedInGuard = false;
 
   constructor(private fireAuthService: AngularFireAuth,
               private toastrService: ToastrService, private router: Router) { }
 
   login(email: string, password: string)  {
-    this.fireAuthService.signInWithEmailAndPassword(email, password)  .then(value => {
-       this.toastrService.success('Login Successfully');
+    this.fireAuthService.signInWithEmailAndPassword(email, password).then(value => {
       this.loadUser();
+      this.toastrService.success('Login Successfully');
       this.loggedIn.next(true);
-       this.router.navigate(['']);
+      this.isLoggedInGuard = true;
+      this.router.navigate(['']);
     }).catch(reason => {
       this.toastrService.warning('Invalid Login Credentials..!')
     })
@@ -35,6 +37,7 @@ export class AuthService {
     this.fireAuthService.signOut().then(value => {
       localStorage.removeItem('user_email');
       this.loggedIn.next(false);
+      this.isLoggedInGuard = false;
       this.router.navigate(['/login']);
     })
   }
