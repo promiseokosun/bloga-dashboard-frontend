@@ -2,4 +2,9 @@
   <div class="container justify-content-center">
     <a routerLink="/" class="site-logo nav-link">Bloga</a>
   </div>
+
+  <div class="container justify-content-center" *ngIf="isLoggedIn$ | async">
+    <a href="#" class="mr-3"> {{ userEmail }} </a>
+    <button class="btn btn-sm btn-info bg-secondary-theme text-primary-theme" (click)="onLogout()"> Logout </button>
+  </div>
 </header>
