@@ -11,7 +11,6 @@ export class LoginComponent {
   constructor(private authService: AuthService) {
   }
   onLogin(formValue: any) {
-    console.log(formValue)
     this.authService.login(formValue.email, formValue.password);
   }
 }
